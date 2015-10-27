@@ -1,2 +1,2 @@
 # smsGate
-an open source app for sending sms through smsgw.net API
+an open source app for sending sms message through smsgw.net API
