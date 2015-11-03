@@ -17,7 +17,6 @@
 		67BF3B0C1BE3C0070045EDEE /* NewMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67BF3B0B1BE3C0070045EDEE /* NewMessage.swift */; };
 		67BF3B141BE4FB240045EDEE /* ContactsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BF3B131BE4FB240045EDEE /* ContactsUI.framework */; };
 		67BF3B151BE4FD200045EDEE /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BF3B0F1BE3C9100045EDEE /* Contacts.framework */; };
-		67E0D3761BE922F4003F2B69 /* PhoneNumbers.txt in Resources */ = {isa = PBXBuildFile; fileRef = 67E0D3751BE922F4003F2B69 /* PhoneNumbers.txt */; };
 		67E7C5B41BDFEC40001F1DA4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E7C5B31BDFEC40001F1DA4 /* AppDelegate.swift */; };
 		67E7C5BB1BDFEC40001F1DA4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67E7C5B91BDFEC40001F1DA4 /* Main.storyboard */; };
 		67E7C5BD1BDFEC40001F1DA4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67E7C5BC1BDFEC40001F1DA4 /* Assets.xcassets */; };
@@ -38,7 +37,6 @@
 		67BF3B0F1BE3C9100045EDEE /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
 		67BF3B111BE3CA490045EDEE /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		67BF3B131BE4FB240045EDEE /* ContactsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ContactsUI.framework; path = System/Library/Frameworks/ContactsUI.framework; sourceTree = SDKROOT; };
-		67E0D3751BE922F4003F2B69 /* PhoneNumbers.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PhoneNumbers.txt; sourceTree = "<group>"; };
 		67E7C5B01BDFEC40001F1DA4 /* smsGate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = smsGate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67E7C5B31BDFEC40001F1DA4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		67E7C5BA1BDFEC40001F1DA4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -122,7 +120,6 @@
 				67E7C5B91BDFEC40001F1DA4 /* Main.storyboard */,
 				67F89E3B1BE762F300052763 /* ConnectURL.swift */,
 				67F89E3D1BE7714200052763 /* ShowsAlert.swift */,
-				67E0D3751BE922F4003F2B69 /* PhoneNumbers.txt */,
 				6711715D1BE3B05300BFF1A3 /* ViewsControllers */,
 				6711715E1BE3B06600BFF1A3 /* Realm Objects */,
 				67E7C5BC1BDFEC40001F1DA4 /* Assets.xcassets */,
@@ -202,7 +199,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				67E0D3761BE922F4003F2B69 /* PhoneNumbers.txt in Resources */,
 				67E7C5C01BDFEC40001F1DA4 /* LaunchScreen.storyboard in Resources */,
 				67E7C5BD1BDFEC40001F1DA4 /* Assets.xcassets in Resources */,
 				67E7C5BB1BDFEC40001F1DA4 /* Main.storyboard in Resources */,

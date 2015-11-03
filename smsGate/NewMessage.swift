@@ -74,6 +74,7 @@ navigationController?.pushViewController(vc!, animated: true)
         
         let userName = NSUserDefaults().stringForKey("userName")
         let password = NSUserDefaults().stringForKey("password")
+        if(userName != nil){
         connectAPI("http://api.smsgw.net/GetCredit",params: ["strUserName":userName!,
             "strPassword":password!])
 
@@ -81,7 +82,7 @@ navigationController?.pushViewController(vc!, animated: true)
         if(selectedGroup != nil){
         selectedGroupOutlet.setTitle(selectedGroup, forState: UIControlState.Normal)
         }
-        
+        }
     }
     override func viewDidAppear(animated: Bool) {
         let isUserLoggedin : Bool = NSUserDefaults().boolForKey("loggedin?")
@@ -104,10 +105,11 @@ navigationController?.pushViewController(vc!, animated: true)
         super.viewDidLoad()
         tableView.keyboardDismissMode = UIScrollViewKeyboardDismissMode.Interactive
      
-        let credits = (NSUserDefaults().stringForKey("credits"))!
+        let credits = (NSUserDefaults().stringForKey("credits"))
         
-        self.navigationItem.prompt = "الرصيد : " + credits + " رسالة"
-        
+        if(credits != nil){
+        self.navigationItem.prompt = "الرصيد : " + credits! + " رسالة"
+        }
         }
     
     override func scrollViewWillBeginDragging(scrollView: UIScrollView) {

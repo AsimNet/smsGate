@@ -32,8 +32,10 @@ class LoginView: UITableViewController ,ShowsAlert{
                         self.showAlert("خطأ", message: "اسم المستخدم أو كلمة المرور خاطئة")
                         return
                     }else{
+                        
                         NSUserDefaults().setBool(true, forKey: "loggedin?")
-                         NSUserDefaults().setObject(response.result.value!, forKey: "credits")
+                       
+                        NSUserDefaults().setObject(response.result.value!, forKey: "credits")
                         
                         NSUserDefaults().setObject(self.tagName.text!, forKey: "tagName")
                         NSUserDefaults().setObject(self.userName.text!, forKey: "userName")
