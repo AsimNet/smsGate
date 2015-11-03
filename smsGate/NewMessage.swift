@@ -27,6 +27,7 @@ class NewMessage: UITableViewController,ShowsAlert {
         let password = NSUserDefaults().stringForKey("password")
         
         let selectedGroupgName = NSUserDefaults().stringForKey("selectedGroup")
+        if(selectedGroupgName != nil){
         let groups = uiRealm.objects(Group).filter({
             $0.gName == selectedGroupgName!
         })
@@ -54,6 +55,9 @@ class NewMessage: UITableViewController,ShowsAlert {
             ])
         connectAPI("http://api.smsgw.net/GetCredit",params: ["strUserName":userName!,
             "strPassword":password!])
+        }else{
+        showAlert("خطأ", message: "حدد مجموعة رجاء")
+        }
     }
     
     @IBAction func selectGroup(sender: AnyObject) {
