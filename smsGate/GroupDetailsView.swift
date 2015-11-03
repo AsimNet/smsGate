@@ -7,89 +7,155 @@
 //
 
 import UIKit
+import ContactsUI
+import Contacts
+import RealmSwift
 
-class GroupDetailsView: UITableViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+class GroupDetailsView: UITableViewController,CNContactPickerDelegate,UIPickerViewDelegate {
+    // MARK: - Variables - Outlets
+
+    //** Contacts instance **//
+    let contactStore = CNContactStore()
+    
+    //** Group object **//
+    var selectedGroup : Group!
+    
+    var strings : [String] = [""]
+   
+    // MARK: - buttons' Actions
+
+    @IBAction func selectContacts(sender: AnyObject) {
+       
+        let contactPickerViewController = CNContactPickerViewController()
+        
+        contactPickerViewController.delegate = self
+        print("result : \(strings)")
+        
+        contactPickerViewController.predicateForEnablingContact =
+            NSPredicate(format:
+                "NOT (givenName IN %@) AND phoneNumbers.@count > 0",
+                argumentArray: strings)
+        
+        //        print("result33 : \(        contactPickerViewController.predicateForEnablingContact!.predicateFormat)")
+        
+        
+        
+        contactPickerViewController.view.tintColor = self.view.tintColor
+        
+        contactPickerViewController.displayedPropertyKeys = [CNContactGivenNameKey, CNContactFamilyNameKey]
+        
+        presentViewController(contactPickerViewController, animated: true, completion: nil)
+    }
+    
+    
+    // MARK: - Contacts Methods
+
+    func contactPicker(picker: CNContactPickerViewController,
+        didSelectContacts contacts: [CNContact]) {
+            print("Selected \(contacts.count) contacts")
+     
+            
+            
+            
+            for var i = 0;i < contacts.count;i++ {
+                let dummycontact = contacts[i]
+                let phoneNumber = dummycontact.phoneNumbers[0].value as! CNPhoneNumber
+                
+                    let result = selectedGroup.contacts.filter { $0.name == (dummycontact.givenName) }
+
+                    print("result : \(result)")
+                    if result.isEmpty {
+                        // contact does not exist in array
+
+                        let saveContact = Contact()
+                        saveContact.name = dummycontact.givenName
+                        saveContact.mobileNumber = phoneNumber.stringValue
+                        
+                        try! Realm().write({
+                            self.selectedGroup.contacts.append(saveContact)
+                            
+                        })
+                    }
+
+            
+            }
+            
+            tableView.reloadData()
+            updatePromptString()
+
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return selectedGroup.contacts.count
     }
-
-    /*
+    
+ 
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
 
         // Configure the cell...
-
+      
+        var dummyContact : Contact!
+        
+        dummyContact = selectedGroup.contacts[indexPath.row]
+        
+        cell.textLabel?.text = dummyContact.mobileNumber
+        cell.detailTextLabel?.text = dummyContact.name
+        strings.append(dummyContact.name)
         return cell
     }
-    */
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
+    
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
             // Delete the row from the data source
+            
+            var dummyContact : Contact!
+            
+            dummyContact = selectedGroup.contacts[indexPath.row]
+
+     try! uiRealm.write({ () -> Void in
+            uiRealm.delete(dummyContact)
+        })
+        
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        updatePromptString()
+
+        }
+    
+    // MARK:- custom method 
+    
+    func updatePromptString() -> Void {
+        
+        let promptString:String
+        let contactNo = selectedGroup.contacts.count
+        
+        if(contactNo == 0){
+            promptString = "لا يوجد مستقبلين"
+            
+        }else if (contactNo == 1){
+            promptString = "رقم واحد"
+        }else if (contactNo == 2 ){
+            promptString = "رقمين"
+        }else if (contactNo > 2 && contactNo < 11){
+            promptString = String(contactNo) + " أرقام"
+        }else{
+            promptString = String(contactNo) + " رقم"
+        }
+
+        self.navigationItem.prompt = promptString
+
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

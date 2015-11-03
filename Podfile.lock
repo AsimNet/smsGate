@@ -1,1 +1,21 @@
+PODS:
+  - Alamofire (3.1.1)
+  - Realm (0.96.2):
+    - Realm/Headers (= 0.96.2)
+  - Realm/Headers (0.96.2)
+  - RealmSwift (0.96.2):
+    - Realm (= 0.96.2)
+  - THContactPicker (1.2)
+
+DEPENDENCIES:
+  - Alamofire
+  - RealmSwift
+  - THContactPicker (~> 1.2)
+
+SPEC CHECKSUMS:
+  Alamofire: 9b0a7188b961a03914a99304488bd226b0e46c0e
+  Realm: 3ce8448151c571e90b85002d984d7f93f54fc8a3
+  RealmSwift: 485599fe54e35461c4a0daa7d01d8fbf11424873
+  THContactPicker: e723f7c6ab6e1d6d10d59d618322ab8bfcb00365
+
 COCOAPODS: 0.39.0.beta.4

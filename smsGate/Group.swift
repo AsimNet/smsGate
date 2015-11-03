@@ -7,7 +7,13 @@
 //
 
 import UIKit
+import RealmSwift
 
-class Group: NSObject {
+class Group: Object {
 
+    dynamic var gName:String = ""
+     let contacts = List<Contact>()
+
+   
+   
 }

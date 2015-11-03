@@ -7,89 +7,123 @@
 //
 
 import UIKit
+import RealmSwift
 
 class GroupsView: UITableViewController {
+    
+    // MARK: - Variables - Outlets
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+  static var selectMood = false
+    var groups : Results<Group>!
+    
+    var selectedGroup:String?
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+    
+    // MARK: - lifeCycle's methods
+    override func viewWillAppear(animated: Bool) {
+        groups = uiRealm.objects(Group)
+        
+        selectedGroup = NSUserDefaults().stringForKey("selectedGroup")
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.tableView.reloadData()
+
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return groups.count
     }
 
-    /*
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
 
         // Configure the cell...
-
+        let group = groups[indexPath.row]
+        
+        let cellLabel = group.gName + " (" + String(group.contacts.count) + ")"
+        print(selectedGroup)
+        
+        cell.accessoryType = UITableViewCellAccessoryType.None
+        
+        if(selectedGroup == group.gName){
+            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+        }
+        cell.textLabel?.text = cellLabel
+        
         return cell
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        let group = groups[indexPath.row]
+        if(!GroupsView.selectMood){
+        let contactNo = group.contacts.count
+        let promptString: String?
+        
+        let vc = self.storyboard?.instantiateViewControllerWithIdentifier("GroupDetailsView") as? GroupDetailsView
+        
+      vc?.selectedGroup = groups[indexPath.row]
+        
+        vc?.navigationItem.title = group.gName
+        if(contactNo == 0){
+            promptString = "لا يوجد مستقبلين"
+            
+        }else if (contactNo == 1){
+            promptString = "رقم واحد"
+        }else if (contactNo == 2 ){
+            promptString = "رقمين"
+        }else if (contactNo > 2 && contactNo < 11){
+            promptString = String(contactNo) + " أرقام"
+        }else{
+            promptString = String(contactNo) + " رقم"
+        }
+        
+        vc?.navigationItem.prompt = promptString
+        
+        self.navigationController?.pushViewController(vc!, animated: true)
+        }else{
+            let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+            
+            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+            
+            GroupsView.selectMood = false
+            selectedGroup = group.gName
+            
+            NSUserDefaults().setValue(selectedGroup, forKey: "selectedGroup")
+            self.navigationController?.popViewControllerAnimated(true)
+            
+            
+            
+            
+        }
+        
     }
-    */
-
-    /*
+    
+    
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
+            let group = groups[indexPath.row]
+
+            try! Realm().write({
+                uiRealm.delete(group )
+                
+            })
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
+    
 
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

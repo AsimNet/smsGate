@@ -3,8 +3,60 @@
 <plist version="1.0">
 <dict>
 	<key>SchemeUserState</key>
-	<dict/>
+	<dict>
+		<key>Alamofire.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-smsGate.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Realm.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>RealmSwift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>THContactPicker.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+	</dict>
 	<key>SuppressBuildableAutocreation</key>
-	<dict/>
+	<dict>
+		<key>26457AB5321B353A427B7F21B14B2B52</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>402781E6C821056A9FACC6BE369A4DC7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>47FEFF12EFADE092263F3F9FA52A4586</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>549217C46A8529B338E489E6FC0DAA22</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A01F065E53221661FB7C12BB8AA519D7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
 </dict>
 </plist>

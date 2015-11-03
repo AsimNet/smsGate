@@ -7,7 +7,18 @@
 //
 
 import UIKit
-
-class Contact: NSObject {
+import RealmSwift
+class Contact: Object {
+    
+    dynamic var name:String = ""
+    dynamic var mobileNumber:String = ""
+    dynamic var groupName:String = ""
+    
+ 
+   
 
 }
+
+
+    
+
